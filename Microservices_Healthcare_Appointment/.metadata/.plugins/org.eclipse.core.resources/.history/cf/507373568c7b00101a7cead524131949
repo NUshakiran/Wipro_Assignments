@@ -1,0 +1,45 @@
+package com.example.appointment_service.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.appointment_service.model.Appointment;
+import com.example.appointment_service.model.AppointmentStatus;
+import com.example.appointment_service.repository.AppointmentRepository;
+
+@Service
+public class AppointmentService {
+	
+	@Autowired
+	private AppointmentRepository appointmentRepository;
+
+    public AppointmentService(AppointmentRepository appointmentRepository) {
+        this.appointmentRepository = appointmentRepository;
+    }
+
+    public Appointment bookAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
+    public List<Appointment> getAppointmentsByPatient(Long patientId) {
+        return appointmentRepository.findByPatientId(patientId);
+    }
+
+    public List<Appointment> getAppointmentsByDoctorAndDate(Long doctorId, java.time.LocalDate date) {
+        return appointmentRepository.findByDoctorIdAndDate(doctorId, date);
+    }
+
+    public Appointment updateAppointment(Appointment appointment) {
+        return appointmentRepository.save(appointment);
+    }
+
+    public void cancelAppointment(Long id) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+        appointmentRepository.save(appointment);
+    }
+
+}

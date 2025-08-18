@@ -1,0 +1,13 @@
+INDEX VERSION 1.4+C:\Wipro\Microservices_Online Learning Platform\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+154539670.index
+1050042363.index
+3392093733.index
+2960399442.index
+1698827149.index
+3693709918.index
+2793823382.index
+2738529941.index
+3389274147.index
+964721829.index
+2732990687.index
+3073883905.index

@@ -1,0 +1,60 @@
+package com.example.classroom_service.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.classroom_service.model.Classroom;
+import com.example.classroom_service.service.ClassroomService;
+import com.example.course_service.dto.ClassroomDTO;
+
+@RestController
+@RequestMapping("/api/classroom")
+public class ClassroomController {
+	
+	@Autowired
+	private  ClassroomService classroomService;
+
+    public ClassroomController(ClassroomService classroomService) {
+        this.classroomService = classroomService;
+    }
+
+    @PostMapping
+    public Classroom createClassroom(@RequestBody Classroom classroom) {
+        return classroomService.createClassroom(classroom);
+    }
+
+    @GetMapping("/{id}")
+    public Classroom getClassroomById(@PathVariable Long id) {
+        return classroomService.getClassroomById(id);
+    }
+
+    @GetMapping("/course/{courseId}")
+    public List<Classroom> getByCourse(@PathVariable Long courseId) {
+        return classroomService.getClassroomsByCourse(courseId);
+    }
+
+    @GetMapping("/teacher/{teacherId}")
+    public List<Classroom> getByTeacher(@PathVariable Long teacherId) {
+        return classroomService.getClassroomsByTeacher(teacherId);
+    }
+
+    @GetMapping
+    public List<Classroom> getAll() {
+        return classroomService.getAllClassrooms();
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteClassroom(@PathVariable Long id) {
+        classroomService.deleteClassroom(id);
+    }
+    
+
+}

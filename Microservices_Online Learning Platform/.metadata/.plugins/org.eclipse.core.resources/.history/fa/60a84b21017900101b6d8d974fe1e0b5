@@ -1,0 +1,14 @@
+package com.example.user_service.dto;
+
+
+public class LoginResponse {
+  public LoginResponse(String string) {
+	  this.message =message;
+		// TODO Auto-generated constructor stub
+	}
+
+  String message;
+  
+  
+}
+

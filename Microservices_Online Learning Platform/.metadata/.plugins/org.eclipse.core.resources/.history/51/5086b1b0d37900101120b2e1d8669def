@@ -1,0 +1,9 @@
+package com.example.course_service.model;
+
+public enum Subject {
+    Java,
+    Pyhon,
+    Datascience,
+    DSA
+
+}

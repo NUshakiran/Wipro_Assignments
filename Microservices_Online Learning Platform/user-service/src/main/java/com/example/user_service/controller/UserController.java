@@ -1,0 +1,30 @@
+package com.example.user_service.controller;
+
+import org.springframework.web.bind.annotation.*;
+
+import com.example.user_service.dto.LoginRequest;
+import com.example.user_service.dto.LoginResponse;
+import com.example.user_service.dto.RegisterRequest;
+import com.example.user_service.service.UserService;
+
+@RestController
+@RequestMapping("/api/users")
+public class UserController {
+
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/register")
+    public LoginResponse register(@RequestBody RegisterRequest request) {
+        return userService.register(request);
+    }
+    
+    
+    @PostMapping("/login")
+    public LoginResponse login(@RequestBody LoginRequest request) {
+        return userService.login(request.getEmail(), request.getPassword());
+    }
+}

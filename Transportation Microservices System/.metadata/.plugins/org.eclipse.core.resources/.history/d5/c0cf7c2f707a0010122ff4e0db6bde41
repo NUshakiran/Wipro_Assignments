@@ -1,0 +1,26 @@
+package com.example.vehicle_service.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.vehicle_service.model.Vehicle;
+import com.example.vehicle_service.repository.VehicleRepository;
+
+@Service
+public class VehicleService {
+	
+	@Autowired
+	private VehicleRepository vehicleRepository;
+	
+	public List<Vehicle> getAll() {
+        return vehicleRepository.findAll();
+    }
+	
+	
+	
+	
+	
+
+}

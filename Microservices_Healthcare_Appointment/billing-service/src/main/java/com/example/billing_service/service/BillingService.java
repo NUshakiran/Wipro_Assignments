@@ -1,0 +1,74 @@
+package com.example.billing_service.service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.billing_service.dto.AppointmentDto;
+import com.example.billing_service.dto.MedicalRecordDto;
+import com.example.billing_service.dto.PatientDto;
+import com.example.billing_service.feign.AppointmentClient;
+import com.example.billing_service.feign.MedicalRecordClient;
+import com.example.billing_service.feign.PatientClient;
+import com.example.billing_service.model.Billing;
+import com.example.billing_service.repository.BillingRepository;
+
+import lombok.RequiredArgsConstructor;
+ 
+
+@Service
+@RequiredArgsConstructor
+public class BillingService {
+
+	@Autowired
+    private  BillingRepository billingRepository;
+	@Autowired
+    private  PatientClient patientClient;
+	@Autowired
+    private  AppointmentClient appointmentClient;
+	@Autowired
+    private  MedicalRecordClient medicalRecordClient;
+
+    public Billing generateBill(Long patientId, Long appointmentId) {
+        
+        PatientDto patient = patientClient.getPatientById(patientId);
+
+        
+        AppointmentDto appointment = appointmentClient.getAppointmentById(appointmentId);
+
+        
+        List<MedicalRecordDto> records = medicalRecordClient.getRecordsByPatient(patientId);
+
+        
+        double baseFee = 500.0;
+        double extra = records.size() * 100.0; 
+        double total = baseFee + extra;
+
+        Billing bill = new Billing();
+        bill.setPatientId(patient.getId());
+        bill.setAppointmentId(appointment.getId());
+        bill.setAmount(total);
+        bill.setStatus("UNPAID");
+        bill.setCreatedAt(LocalDateTime.now());
+
+        return billingRepository.save(bill);
+    }
+
+    public Billing payBill(Long billId) {
+        Billing bill = billingRepository.findById(billId)
+                .orElseThrow(() -> new RuntimeException("Bill not found"));
+        bill.setStatus("PAID");
+        return billingRepository.save(bill);
+    }
+
+    public List<Billing> getBillsForPatient(Long patientId) {
+        return billingRepository.findByPatientId(patientId);
+    }
+
+    public Billing getBillById(Long id) {
+        return billingRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Bill not found"));
+    }
+}

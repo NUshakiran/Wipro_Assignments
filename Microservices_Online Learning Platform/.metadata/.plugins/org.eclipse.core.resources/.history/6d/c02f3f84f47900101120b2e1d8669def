@@ -1,0 +1,8 @@
+spring.application.name=notification-service
+
+server.port = 2005
+
+# MongoDB connection
+spring.data.mongodb.host=localhost
+spring.data.mongodb.port=5432
+spring.data.mongodb.database=notification_db

@@ -1,0 +1,69 @@
+package com.example.appointment_service.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.appointment_service.client.DoctorClient;
+import com.example.appointment_service.client.PatientClient;
+import com.example.appointment_service.dto.AppointmentResponseDto;
+import com.example.appointment_service.dto.DoctorDto;
+import com.example.appointment_service.model.Appointment;
+import com.example.appointment_service.model.AppointmentStatus;
+import com.example.appointment_service.repository.AppointmentRepository;
+
+@Service
+public class AppointmentService {
+	
+	@Autowired
+    private AppointmentRepository appointmentRepository;
+
+    @Autowired
+    private PatientClient patientClient;
+
+    @Autowired
+    private DoctorClient doctorClient;
+
+
+    public Appointment createAppointment(Appointment appointment) {
+        
+        DoctorDto patient = patientClient.getPatientById(appointment.getPatientId());
+        if (patient == null) {
+            throw new RuntimeException("Invalid Patient ID: " + appointment.getPatientId());
+        }
+
+        AppointmentResponseDto doctor = doctorClient.getDoctorById(appointment.getDoctorId());
+        if (doctor == null) {
+            throw new RuntimeException("Invalid Doctor ID: " + appointment.getDoctorId());
+        }
+
+        appointment.setStatus(AppointmentStatus.CONFIRMED);
+        return appointmentRepository.save(appointment);
+    }
+
+ 
+    public List<Appointment> getAllAppointments() {
+        return appointmentRepository.findAll();
+    }
+
+   
+    public Appointment getAppointmentById(Long id) {
+        return appointmentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Appointment not found with id: " + id));
+    }
+
+  
+    public Appointment cancelAppointment(Long id) {
+        Appointment appointment = getAppointmentById(id);
+        appointment.setStatus(AppointmentStatus.CANCELLED);
+        return appointmentRepository.save(appointment);
+    }
+    public void deleteAppointment(Long id) {
+        Appointment appointment = getAppointmentById(id); // throws exception if not found
+        appointmentRepository.delete(appointment);
+    }
+	
+	
+
+}

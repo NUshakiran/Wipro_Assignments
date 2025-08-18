@@ -1,0 +1,24 @@
+package com.example.course_service.controller;
+
+
+import org.springframework.web.bind.annotation.*;
+
+import com.example.course_service.dto.CourseRequest;
+import com.example.course_service.dto.CourseResponse;
+import com.example.course_service.service.CourseService;
+
+@RestController
+@RequestMapping("/api/courses")
+public class CourseController {
+
+    private final CourseService courseService;
+
+    public CourseController(CourseService courseService) {
+        this.courseService = courseService;
+    }
+
+    @PostMapping("/create")
+    public CourseResponse createCourse(@RequestBody CourseRequest request) {
+        return courseService.createCourse(request);
+    }
+}

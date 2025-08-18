@@ -1,0 +1,6 @@
+package com.example.assessment_service.model;
+
+public enum AssessmentType {
+	QUIZ,ASSESSMENT
+
+}

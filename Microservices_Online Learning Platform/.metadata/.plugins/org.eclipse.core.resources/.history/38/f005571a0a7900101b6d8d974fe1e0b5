@@ -1,0 +1,30 @@
+package com.example.course_service.service;
+
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.course_service.dto.CourseRequest;
+import com.example.course_service.dto.CourseResponse;
+import com.example.course_service.model.Course;
+import com.example.course_service.repository.CourseRepository;
+
+@Service
+public class CourseService {
+
+    @Autowired
+    private CourseRepository courseRepository;
+
+    public CourseResponse createCourse(CourseRequest request) {
+        Course course = new Course();
+        course.setTitle(request.getTitle());
+        course.setDescription(request.getDescription());
+        course.setSyllabus(request.getSyllabus());
+        course.setSubject(request.getSubject());
+        course.setTeacherEmail(request.getTeacherEmail());
+
+        Course saved = courseRepository.save(course);
+        return new CourseResponse(saved.getId(), "Course created successfully");
+    }
+}

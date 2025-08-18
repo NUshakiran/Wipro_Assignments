@@ -1,0 +1,11 @@
+package com.example.medical_records_service.dto;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "appointment-service", url = "http://localhost:7777")
+public interface AppointmentClient {
+    @GetMapping("/appointments/{id}")
+    AppointmentDto getAppointmentById(@PathVariable("id") Long long1);
+}

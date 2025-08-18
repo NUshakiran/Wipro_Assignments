@@ -1,0 +1,10 @@
+package com.example.medical_records_service.dto;
+
+import java.util.List;
+
+import com.example.medical_records_service.model.MedicalRecord;
+
+public class PatientMedicalRecordsDto {
+    private PatientDto patient;
+    private List<MedicalRecord> medicalRecords;
+}
