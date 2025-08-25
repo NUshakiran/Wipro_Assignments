@@ -1,0 +1,45 @@
+<div class="container mt-3">
+  <h2>Billing Records</h2>
+
+  <!-- Messages -->
+  <div *ngIf="message" class="alert alert-success">{{ message }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <table class="table table-bordered table-striped mt-2">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Patient ID</th>
+        <th>Appointment ID</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Created At</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let bill of billings">
+        <td>{{ bill.id }}</td>
+        <td>{{ bill.patientId }}</td>
+        <td>{{ bill.appointmentId }}</td>
+        <td>{{ bill.amount | currency:'INR' }}</td>
+        <td>{{ bill.status }}</td>
+        <td>{{ bill.createdAt | date:'short' }}</td>
+        <td>
+          <button *ngIf="bill.status === 'UNPAID'" 
+                  (click)="payBill(bill.id)" 
+                  class="btn btn-success btn-sm">
+            Pay
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div>
+    <a href="/generate-billing" class="btn btn-primary btn-sm">Generate Bill</a> <br>
+    
+    <br>
+    <a href="/">Back To Main Menu</a>
+  </div>
+</div>

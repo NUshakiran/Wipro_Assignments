@@ -1,0 +1,47 @@
+<h2>All Patients</h2>
+
+<div *ngIf="errorMessage" style="color: red;">
+  {{ errorMessage }}
+</div>
+
+<div>
+  Total patients: {{ patients.length }}
+</div>
+
+<div *ngIf="!patients.length && !errorMessage && isLoading">
+  Loading...
+</div>
+
+<div *ngIf="patients.length > 0" class="patient-list">
+  <div class="patient-header">
+    <strong>ID</strong>
+    <strong>Name</strong>
+    <strong>Email</strong>
+    <strong>Contact</strong>
+    <strong>Age</strong>
+    <strong>Gender</strong>
+    <strong>Insurance Provider</strong>
+    <strong>Insurance Number</strong>
+    <strong>Actions</strong>
+  </div>
+
+  <div *ngFor="let p of patients" class="patient-row">
+    <div>{{ p.id }}</div>
+    <div>{{ p.name }}</div>
+    <div>{{ p.email }}</div>
+    <div>{{ p.contactNumber }}</div>
+    <div>{{ p.age }}</div>
+    <div>{{ p.gender }}</div>
+    <div>{{ p.insuranceProvider }}</div>
+    <div>{{ p.insuranceNumber }}</div>
+    <div>
+      <button (click)="editPatient(p.id)">Edit</button>
+      <button (click)="deletePatient(p.id)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<br/>
+
+<a href="/add-patient">Add Patient</a> |
+<a href="/">Back To Main Menu</a>

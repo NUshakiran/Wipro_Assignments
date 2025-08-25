@@ -1,0 +1,36 @@
+<div>
+  <h1>Add Patient</h1>
+  <form>
+    <label>Name</label>
+    <input type="text" [(ngModel)]="patient.name" name="name" placeholder="Enter name"><br>
+
+    <label>Email</label>
+    <input type="email" [(ngModel)]="patient.email" name="email" placeholder="Enter email"><br>
+
+    <label>Contact Number</label>
+    <input type="text" [(ngModel)]="patient.contactNumber" name="contactNumber" placeholder="Enter contact"><br>
+
+    <label>Age</label>
+    <input type="number" [(ngModel)]="patient.age" name="age" placeholder="Enter age"><br>
+
+    <label>Gender</label>
+    <select [(ngModel)]="patient.gender" name="gender">
+      <option value="MALE">Male</option>
+      <option value="FEMALE">Female</option>
+    </select><br>
+
+    <label>Insurance Provider</label>
+    <input type="text" [(ngModel)]="patient.insuranceProvider" name="insuranceProvider" placeholder="Enter provider"><br>
+
+    <label>Insurance Number</label>
+    <input type="text" [(ngModel)]="patient.insuranceNumber" name="insuranceNumber" placeholder="Enter number"><br><br>
+
+    <button type="button" (click)="onSubmit()">Add Patient</button>
+    &nbsp;&nbsp;
+    <input type="reset" value="Reset">
+  </form>
+
+  <p>{{message}}</p>
+  <a href="/patients">Back to Patient List</a> <br/>
+  <a href="/">Back to Main Menu</a>
+</div>

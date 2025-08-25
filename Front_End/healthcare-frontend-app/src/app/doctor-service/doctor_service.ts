@@ -1,0 +1,34 @@
+// src/app/doctor-service/doctor-service.ts
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Doctor } from '../model/doctor';  // create a Doctor model
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DoctorService {
+  private baseUrl = 'http://localhost:8888/api/doctors';
+
+  constructor(private http: HttpClient) { }
+
+  getAllDoctors(): Observable<Doctor[]> {
+    return this.http.get<Doctor[]>(this.baseUrl);
+  }
+
+  getDoctorById(id: number): Observable<Doctor> {
+    return this.http.get<Doctor>(`${this.baseUrl}/${id}`);
+  }
+
+  createDoctor(doctor: Doctor): Observable<Doctor> {
+    return this.http.post<Doctor>(this.baseUrl, doctor);
+  }
+
+  updateDoctor(id: number, doctor: Doctor): Observable<Doctor> {
+    return this.http.put<Doctor>(`${this.baseUrl}/${id}`, doctor);
+  }
+
+  deleteDoctor(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${id}`);
+  }
+}

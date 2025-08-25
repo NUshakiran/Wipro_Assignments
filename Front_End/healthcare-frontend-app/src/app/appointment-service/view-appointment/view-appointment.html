@@ -1,0 +1,33 @@
+<h2>All Appointments</h2>
+
+<p *ngIf="message" style="color:red">{{ message }}</p>
+
+<div *ngIf="appointments.length === 0 && !message">Loading...</div>
+
+<div *ngIf="appointments.length > 0">
+  <div class="header">
+    <strong>ID</strong>
+    <strong>Patient ID</strong>
+    <strong>Doctor ID</strong>
+    <strong>Time</strong>
+    <strong>Status</strong>
+    <strong>Actions</strong>
+  </div>
+
+  <div *ngFor="let app of appointments" class="row">
+    <div>{{ app.id }}</div>
+    <div>{{ app.patientId }}</div>
+    <div>{{ app.doctorId }}</div>
+    <div>{{ app.appointmentTime }}</div>
+    <div>{{ app.status }}</div>
+    <div>
+      <button (click)="editAppointment(app.id)">Edit</button>
+      <button (click)="deleteAppointment(app.id)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<br/>
+<a href="/add-appointment">Add Appointment</a> |
+<a href="/">Back To Main Menu</a>
+

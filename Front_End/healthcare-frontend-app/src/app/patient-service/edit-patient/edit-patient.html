@@ -1,0 +1,33 @@
+<div>
+  <h1>Edit Patient</h1>
+  <form>
+    <label>Name</label>
+    <input type="text" [(ngModel)]="patient.name" name="name"><br>
+
+    <label>Email</label>
+    <input type="email" [(ngModel)]="patient.email" name="email"><br>
+
+    <label>Contact Number</label>
+    <input type="text" [(ngModel)]="patient.contactNumber" name="contactNumber"><br>
+
+    <label>Age</label>
+    <input type="number" [(ngModel)]="patient.age" name="age"><br>
+
+    <label>Gender</label>
+    <select [(ngModel)]="patient.gender" name="gender">
+      <option value="MALE">Male</option>
+      <option value="FEMALE">Female</option>
+    </select><br>
+
+    <label>Insurance Provider</label>
+    <input type="text" [(ngModel)]="patient.insuranceProvider" name="insuranceProvider"><br>
+
+    <label>Insurance Number</label>
+    <input type="text" [(ngModel)]="patient.insuranceNumber" name="insuranceNumber"><br><br>
+
+    <button type="button" (click)="onSubmit()">Update Patient</button>
+  </form>
+
+  <p>{{message}}</p>
+  <a href="/patients">Back to Patient List</a>
+</div>

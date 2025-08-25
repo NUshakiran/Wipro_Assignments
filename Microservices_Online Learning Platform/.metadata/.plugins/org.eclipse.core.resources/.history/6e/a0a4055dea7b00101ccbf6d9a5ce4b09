@@ -1,0 +1,8 @@
+
+
+package com.example.classroom_service.dto;
+
+public class StudentAttendenceDto {
+	private UserDto student;   
+    private boolean present;
+}

@@ -1,0 +1,35 @@
+<h2>All Doctors</h2>
+
+<div *ngIf="errorMessage" style="color:red;">{{ errorMessage }}</div>
+
+<div>Total doctors: {{ doctors.length }}</div>
+
+<div *ngIf="!doctors.length && !errorMessage">
+  Loading...
+</div>
+
+<div *ngIf="doctors.length > 0" class="doctor-list">
+  <div class="doctor-header">
+    <strong>ID</strong>
+    <strong>Name</strong>
+    <strong>Email</strong>
+    <strong>Specialization</strong>
+    <strong>Actions</strong>
+  </div>
+
+  <div *ngFor="let doctor of doctors" class="doctor-row">
+    <div>{{ doctor.id }}</div>
+    <div>{{ doctor.name }}</div>
+    <div>{{ doctor.email }}</div>
+    <div>{{ doctor.specialization }}</div>
+    <div>
+      <button (click)="editDoctor(doctor.id)">Edit</button>
+      <button (click)="deleteDoctor(doctor.id)">Delete</button>
+    </div>
+  </div>
+</div>
+
+<br/>
+<a href="/add-doctor">Add Doctor</a> |
+<a href="/">Back To Main Menu</a>
+

@@ -1,0 +1,36 @@
+<div class="container mt-3">
+  <h2>Generate Bill</h2>
+
+  <!-- Success / Error Messages -->
+  <div *ngIf="message" class="alert alert-success">{{ message }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="onSubmit()" #billForm="ngForm" class="mb-3">
+    <div class="mb-2">
+      <label>Patient ID:</label>
+      <input type="number" [(ngModel)]="billing.patientId" name="patientId" required class="form-control"/>
+    </div>
+
+    <div class="mb-2">
+      <label>Appointment ID:</label>
+      <input type="number" [(ngModel)]="billing.appointmentId" name="appointmentId" required class="form-control"/>
+    </div>
+
+    <div class="mb-2">
+      <label>Amount:</label>
+      <input type="number" [(ngModel)]="billing.amount" name="amount" required class="form-control"/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Generate Bill</button>
+  </form>
+
+  <div *ngIf="generatedBill" class="card p-3">
+    <h3>Bill Generated</h3>
+    <p><strong>ID:</strong> {{ generatedBill.id }}</p>
+    <p><strong>Patient:</strong> {{ generatedBill.patientId }}</p>
+    <p><strong>Appointment:</strong> {{ generatedBill.appointmentId }}</p>
+    <p><strong>Amount:</strong> {{ generatedBill.amount | currency:'INR' }}</p>
+    <p><strong>Status:</strong> {{ generatedBill.status }}</p>
+    <p><strong>Created At:</strong> {{ generatedBill.createdAt | date:'short' }}</p>
+  </div>
+</div>
